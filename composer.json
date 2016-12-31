@@ -8,5 +8,10 @@
             "email": "info@carono.ru"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "carono\\okvad\\": ""
+        }
+    },
     "require": {}
 }
