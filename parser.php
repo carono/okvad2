@@ -1,5 +1,9 @@
 <?php
 require 'vendor/autoload.php';
+if (!class_exists('\phpQuery')){
+    echo 'Class phpQuery not found, install first: composer require electrolinux/phpquery';
+    exit;
+}
 
 $content = file_get_contents('content.html');
 

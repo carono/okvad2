@@ -1,7 +1,12 @@
 {
-    "require": {
-    },
-    "require-dev": {
-        "electrolinux/phpquery": "^0.9.6"
-    }
+    "name": "carono/okvad2",
+    "description": "National Classification of Economic Activities of Russia",
+    "type": "library",
+    "authors": [
+        {
+            "name": "carno",
+            "email": "info@carono.ru"
+        }
+    ],
+    "require": {}
 }
