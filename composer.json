@@ -1,0 +1,7 @@
+{
+    "require": {
+    },
+    "require-dev": {
+        "electrolinux/phpquery": "^0.9.6"
+    }
+}
