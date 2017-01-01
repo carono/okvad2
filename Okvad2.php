@@ -16,6 +16,11 @@ class Okvad2
         return isset(self::getSections()[$section]) ? self::getSections()[$section] : [];
     }
 
+    public static function getSection($code)
+    {
+        return isset(self::getSections()[$code]) ? self::getSections()[$code] : false;
+    }
+
     public static function getSections()
     {
         return self::getData();
@@ -23,12 +28,16 @@ class Okvad2
 
     public static function getSorted()
     {
-        return self::$_sorted ? self::$_sorted : self::$_sorted = json_decode(file_get_contents('sorted.json'), true);
+        return self::$_sorted ? self::$_sorted : self::$_sorted = self::getContent('sorted.json');
     }
 
     public static function getData()
     {
-        return self::$_data ? self::$_data : self::$_data = json_decode(file_get_contents('data.json'), true);
+        return self::$_data ? self::$_data : self::$_data = self::getContent('data.json');
     }
 
+    private static function getContent($file)
+    {
+        return json_decode(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . $file), true);
+    }
 }

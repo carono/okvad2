@@ -1,11 +1,11 @@
 <?php
 require 'vendor/autoload.php';
-if (!class_exists('\phpQuery')){
+if (!class_exists('\phpQuery')) {
     echo 'Class phpQuery not found, install first: composer require electrolinux/phpquery';
     exit;
 }
 
-$content = file_get_contents('content.html');
+$content = file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'content.html');
 
 $query = phpQuery::newDocument($content);
 
@@ -22,16 +22,32 @@ foreach ($table->find('tr') as $tr) {
     }
     $name = $tr->find('td')->eq(0)->text();
     $value = $tr->find('td')->eq(1)->text();
-    if (stripos($name, 'РАЗДЕЛ') !== false) {
+    $name = strip_tags(str_replace('</div>',"</div>\n",$tr->find('td')->eq(0)->html()));
+    $value = strip_tags(str_replace('</div>',"</div>\n",$tr->find('td')->eq(1)->html()));
+    if (mb_stripos(trim($name), 'раздел', null, 'utf-8') === 0) {
         preg_match('/раздел (\w+)/iu', $name, $match);
         $section = $match[1];
-        $result[$section] = ['description' => $value, 'items' => []];
-    } elseif ($name) {
-        $result[$section]['items'][$name] = $codes[$name] = ['description' => $value, 'links' => []];
+        $result[$section] = ['description' => '', 'items' => [], 'caption' => mb_ucfirst($value)];
+    } elseif ($name && $value) {
+        $result[$section]['items'][$name] = $codes[$name] = ['caption' => $value, 'links' => []];
         foreach ($tr->find('td')->eq(1)->find('a') as $a) {
             $result[$section]['items'][$name]['links'][] = $codes[$name]['links'][] = pq($a)->text();
         }
+    } else {
+        if ($tr->find('td')->count() == 2) {
+            $result[$section]['description'] = $value;
+        } else {
+            $result[$section]['description'] = $name;
+        }
     }
 }
-file_put_contents('data.json', json_encode($result));
-file_put_contents('sorted.json', json_encode($codes));
+file_put_contents(__DIR__ . DIRECTORY_SEPARATOR . 'data.json', json_encode($result));
+file_put_contents(__DIR__ . DIRECTORY_SEPARATOR . 'sorted.json', json_encode($codes));
+
+
+function mb_ucfirst($str, $lower = true)
+{
+    $enc = 'utf-8';
+    $str = $lower ? mb_strtolower($str, $enc) : $str;
+    return mb_strtoupper(mb_substr($str, 0, 1, $enc), $enc) . mb_substr($str, 1, mb_strlen($str, $enc), $enc);
+}
