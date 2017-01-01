@@ -22,8 +22,7 @@ foreach ($table->find('tr') as $tr) {
     }
     $name = $tr->find('td')->eq(0)->text();
     $value = $tr->find('td')->eq(1)->text();
-    $name = strip_tags(str_replace('</div>',"</div>\n",$tr->find('td')->eq(0)->html()));
-    $value = strip_tags(str_replace('</div>',"</div>\n",$tr->find('td')->eq(1)->html()));
+
     if (mb_stripos(trim($name), 'раздел', null, 'utf-8') === 0) {
         preg_match('/раздел (\w+)/iu', $name, $match);
         $section = $match[1];
@@ -34,11 +33,7 @@ foreach ($table->find('tr') as $tr) {
             $result[$section]['items'][$name]['links'][] = $codes[$name]['links'][] = pq($a)->text();
         }
     } else {
-        if ($tr->find('td')->count() == 2) {
-            $result[$section]['description'] = $value;
-        } else {
-            $result[$section]['description'] = $name;
-        }
+        $result[$section]['description'] = trim(strip_tags(str_replace('</div>', "</div>\n", $tr->html())));
     }
 }
 file_put_contents(__DIR__ . DIRECTORY_SEPARATOR . 'data.json', json_encode($result));

@@ -11,6 +11,11 @@ class Okvad2
         return isset(self::getSorted()[$code]) ? self::getSorted()[$code] : [];
     }
 
+    public static function getCaptionByCode($code)
+    {
+        return self::getByCode($code) ? self::getByCode($code)['caption'] : '';
+    }
+
     public static function getCodesInSection($section)
     {
         return isset(self::getSections()[$section]) ? self::getSections()[$section] : [];
