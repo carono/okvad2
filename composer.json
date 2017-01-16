@@ -2,9 +2,11 @@
     "name": "carono/okvad2",
     "description": "National Classification of Economic Activities of Russia",
     "type": "library",
+    "license": "MIT",
     "authors": [
         {
-            "name": "carno",
+            "homepage": "http://carono.ru",
+            "name": "Aleksandr Kasyanov",
             "email": "info@carono.ru"
         }
     ],
