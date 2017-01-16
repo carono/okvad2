@@ -1,19 +1,25 @@
 {
-    "name": "carono/okvad2",
-    "description": "National Classification of Economic Activities of Russia",
-    "type": "library",
-    "license": "MIT",
-    "authors": [
-        {
-            "homepage": "http://carono.ru",
-            "name": "Aleksandr Kasyanov",
-            "email": "info@carono.ru"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "carono\\okvad\\": ""
-        }
-    },
-    "require": {}
+  "name": "carono/okvad2",
+  "description": "National Classification of Economic Activities of Russia",
+  "type": "library",
+  "keywords": [
+    "ОКВЭД",
+    "Виды деятельности",
+    "MySQL",
+    "КонсультантПлюс"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "homepage": "http://carono.ru",
+      "name": "Aleksandr Kasyanov",
+      "email": "info@carono.ru"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "carono\\okvad\\": ""
+    }
+  },
+  "require": {}
 }
